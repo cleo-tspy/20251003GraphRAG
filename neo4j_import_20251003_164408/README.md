@@ -78,10 +78,10 @@ E9,ReceiveOutsourcedToWarehouse,2025-10-07T02:20:00Z,WO888,WO888,,W002,Warehouse
 
 ---
 
-## nodes/ 與 relations/（核心靜態模型）
+## nodes/ 與 edges/（核心靜態模型）
 
 - **nodes/**：各類節點（`Part / BOM / BOMComponent / ProductSegment / WorkOrder / ...`）  
-- **relations/**：各類非事件關係（例如）  
+- **edges/**：各類非事件關係（例如）  
   - `r_part_hasBOM_BOM.csv` → `(Part)-[:HAS_BOM]->(BOM)`  
   - `r_BOM_includesComponent_BOMComponent.csv` → `(BOM)-[:INCLUDES_COMPONENT]->(BOMComponent)`  
   - `r_BOMComponent_consumesChildPart_Part.csv` → `(BOMComponent)-[:CONSUMES_CHILD_PART]->(Part)`  
@@ -89,7 +89,7 @@ E9,ReceiveOutsourcedToWarehouse,2025-10-07T02:20:00Z,WO888,WO888,,W002,Warehouse
   - `r_ProductSegment_realizes_Process.csv` → `(ProductSegment)-[:REALIZES]->(Process)`  
   - ……（其餘依檔名即語意）
 
-> **事件的 performedBy / relatesTo / atSegment / recordedIn / produces / uses** 等關係，皆由 `e_event.csv` 自動物化，不需在 relations/ 另建檔案。
+> **事件的 performedBy / relatesTo / atSegment / recordedIn / produces / uses** 等關係，皆由 `e_event.csv` 自動物化，不需在 edges/ 另建檔案。
 
 ---
 
@@ -127,7 +127,7 @@ E9,ReceiveOutsourcedToWarehouse,2025-10-07T02:20:00Z,WO888,WO888,,W002,Warehouse
 - `eventType` 必須出現在 `e_eventType.csv`。  
 - `occurredAt` 必須為有效 ISO8601，可被 `datetime()` 解析。  
 - `eventId / threadId / workOrderId / productSegmentId / agentId / docId` 等主鍵欄位，請避免前後空白（匯入前做 trim）。  
-- `nodes/` 與 `relations/` 的檔頭（header）請勿更名，否則需同步調整 `cypher_load_csv.cypher` 中的對應欄位名。
+- `nodes/` 與 `edges/` 的檔頭（header）請勿更名，否則需同步調整 `cypher_load_csv.cypher` 中的對應欄位名。
 
 ---
 
