@@ -1,0 +1,35 @@
+jobs:
+  - name: n_SalesOrder
+    sql_file: etl/sql/n_SalesOrder.sql
+    params:
+      from: "2025-10-01"
+      to:   "2026-12-01"
+    output: ./nodes/n_SalesOrder.csv
+
+  - name: n_SalesOrderItem
+    sql_file: etl/sql/n_SalesOrderItem.sql
+    params:
+      from: "2025-10-01"
+      to:   "2025-12-01"
+    output: ./nodes/n_SalesOrderItem.csv
+
+  - name: n_WorkOrder
+    depends_on: [n_SalesOrderItem]
+    sql_file: etl/sql/n_WorkOrder.sql
+    cte_from_csv:
+      path: ./nodes/n_SalesOrderItem.csv
+      column: salesOrderItemId
+      cte_name: ids_cte
+      cte_column: salesOrderItemId
+      batch_size: 800
+    # 最終欄位
+    select_columns: [workOrderId, workOrderNo, workOrderStatus, workOrderQuantityPlanned]
+    output: ./nodes/n_WorkOrder.csv
+
+  - name: n_Process
+    sql_file: etl/sql/n_Process.sql
+    output: ./nodes/n_Process.csv
+
+  - name: n_WorkCenter
+    sql_file: etl/sql/n_WorkCenter.sql
+    output: ./nodes/n_WorkCenter.csv
