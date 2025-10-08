@@ -1,0 +1,8 @@
+eventType,eventType_zh_tw,description
+OperationCheckIn,進站報工,工序開始報工事件
+OperationCheckOut,出站報工,工序結束報工事件
+ReceiveProductionToWarehouse,倉管點收入庫（生產）,最後一道出站後由倉庫點收入庫
+CompleteWorkOrder,製令完工,入庫後關閉本製令
+AcknowledgeOutsourcingReceipt,委外簽收,委外件回廠簽收
+GenerateOutsourcedGoodsReceipt,產生委外進貨單,ERP 依委外完工產生進貨單
+ReceiveOutsourcedToWarehouse,倉管點收入庫（委外）,倉庫依委外進貨單入庫

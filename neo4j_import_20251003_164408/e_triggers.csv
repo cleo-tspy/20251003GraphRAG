@@ -1,0 +1,6 @@
+fromType,toType,guard,guard_zh,notes
+OperationCheckIn,OperationCheckOut,,,標準前後站
+OperationCheckOut,ReceiveProductionToWarehouse,isFinalSegment=true,該工單最後一道製程,由倉庫點收入庫（生產）
+ReceiveProductionToWarehouse,CompleteWorkOrder,,,完工結束
+AcknowledgeOutsourcingReceipt,OperationCheckIn,,,委外回廠後接續進站
+OperationCheckOut,GenerateOutsourcedGoodsReceipt,isOutsourced=true,委外完工,由 ERP 產單
